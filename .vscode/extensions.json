@@ -1,3 +1,11 @@
 {
-  "recommendations": ["Vue.volar"]
+  "recommendations": [
+    "Vue.volar",
+    "antfu.unocss",
+    "antfu.vite",
+    "antfu.iconify",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.EditorConfig",
+    "naumovs.color-highlight"
+  ]
 }
