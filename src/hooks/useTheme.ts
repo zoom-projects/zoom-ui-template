@@ -11,7 +11,16 @@ import { ElMessage } from 'element-plus'
  */
 export function useTheme() {
   const globalStore = useGlobalStore()
-  const { primary, isDark, isGrey, isWeak, layout, asideInverted, headerInverted } = storeToRefs(globalStore)
+  const {
+    primary,
+    isDark,
+    colorMode,
+    isGrey,
+    isWeak,
+    layout,
+    asideInverted,
+    headerInverted,
+  } = storeToRefs(globalStore)
 
   // 修改主题颜色
   const changePrimary = (val: string | null) => {
@@ -107,6 +116,46 @@ export function useTheme() {
     if (isWeak.value)
       changeGreyOrWeak('weak', true)
   }
+
+  const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
+  function updateTheme() {
+    const isDark = darkMediaQuery.matches
+    if (isDark && colorMode.value === 'auto') {
+      // globalStore.isDark = true
+      globalStore.setGlobalState('isDark', true)
+      return
+    }
+    if (colorMode.value !== 'auto') {
+      globalStore.isDark = colorMode.value === 'dark'
+      // globalStore.setGlobalState('isDark', colorMode.value === 'dark')
+    }
+  }
+  // 监听暗黑模式变化
+  function removeWatchDarkMode() {
+    window.removeEventListener('change', updateTheme)
+  }
+  function watchDarkMode() {
+    updateTheme()
+    removeWatchDarkMode()
+    window.addEventListener('change', updateTheme)
+  }
+
+  // 监听主题模式变化
+  watch(colorMode, () => {
+    updateTheme()
+    switchDark()
+  })
+
+  onMounted(() => {
+    nextTick(() => {
+      watchDarkMode()
+      initTheme()
+    })
+  })
+
+  onUnmounted(() => {
+    removeWatchDarkMode()
+  })
 
   return {
     initTheme,

@@ -5,12 +5,11 @@
 <template>
   <div class="tool-bar-ri">
     <div class="header-icon">
-      <AssemblySize />
-      <Language />
       <SearchMenu />
+      <Fullscreen />
+      <AssemblySize />
       <ThemeSetting />
       <Message />
-      <Fullscreen />
     </div>
     <span class="username">Admin</span>
     <Avatar />

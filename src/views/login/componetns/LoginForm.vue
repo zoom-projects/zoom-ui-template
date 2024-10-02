@@ -4,7 +4,7 @@ import { ElForm } from 'element-plus'
 import Motion from '../utils/motion'
 import PhoneLogin from './PhoneLogin.vue'
 import Register from './Register.vue'
-import { loginApiByUsername } from '/src/api/modules/login'
+import { loginApiByUsernameApi } from '/src/api/modules/login'
 import { useUserStore } from '/src/store'
 
 const userStore = useUserStore()
@@ -34,7 +34,7 @@ function formSubmit() {
     loading.value = true
     try {
       // // 1.执行登录接口
-      const { data } = await loginApiByUsername({ ...loginForm, password: loginForm.password })
+      const { data } = await loginApiByUsernameApi({ ...loginForm, password: loginForm.password })
       userStore.setToken(data)
       // 2.执行登录后的操作
       await userStore.afterLogin()

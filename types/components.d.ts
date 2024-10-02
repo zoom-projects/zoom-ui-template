@@ -36,6 +36,7 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElScrollbar: typeof import('element-plus/es')['ElScrollbar']
+    ElSegmented: typeof import('element-plus/es')['ElSegmented']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
@@ -44,7 +45,6 @@ declare module 'vue' {
     Footer: typeof import('./../src/layouts/components/Footer/index.vue')['default']
     Fullscreen: typeof import('./../src/layouts/components/header/components/Fullscreen.vue')['default']
     IconPicker: typeof import('./../src/components/IconPicker/index.vue')['default']
-    Language: typeof import('./../src/layouts/components/header/components/Language.vue')['default']
     Loading: typeof import('./../src/components/Loading/index.vue')['default']
     Main: typeof import('./../src/layouts/components/Main/index.vue')['default']
     Maximize: typeof import('./../src/layouts/components/Main/components/Maximize.vue')['default']
@@ -59,6 +59,7 @@ declare module 'vue' {
     Tabs: typeof import('./../src/layouts/components/Tabs/index.vue')['default']
     ThemeDrawer: typeof import('./../src/layouts/components/ThemeDrawer/index.vue')['default']
     ThemeSetting: typeof import('./../src/layouts/components/header/components/ThemeSetting.vue')['default']
+    ThemeSwitch: typeof import('./../src/layouts/components/header/components/ThemeSwitch.vue')['default']
     ToolBarLeft: typeof import('./../src/layouts/components/header/ToolBarLeft.vue')['default']
     ToolBarRight: typeof import('./../src/layouts/components/header/ToolBarRight.vue')['default']
   }

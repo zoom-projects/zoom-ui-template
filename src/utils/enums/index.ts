@@ -25,6 +25,15 @@ export enum Locale {
   en = 'en',
 }
 
+export enum ThemeColorMode {
+  // 自动
+  auto = 'auto',
+  // 深色
+  dark = 'dark',
+  // 浅色
+  light = 'light',
+}
+
 // 登录类型
 export enum LoginType {
   username = 'username',

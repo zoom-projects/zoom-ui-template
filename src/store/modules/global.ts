@@ -1,9 +1,9 @@
 import { DEFAULT_PRIMARY } from '@/config'
-import { LayoutMode, Locale, Size } from '@/utils/enums'
+import { LayoutMode, Size, ThemeColorMode } from '@/utils/enums'
 import { store } from '..'
 import piniaPersistConfig from '../helper/persist'
 
-type SettingsValue = LayoutMode | Size | Locale | string | boolean
+type SettingsValue = LayoutMode | Size | ThemeColorMode | string | boolean
 /**
  * @description 全局状态
  */
@@ -14,14 +14,14 @@ export const useGlobalStore = defineStore(
     const layout = ref(LayoutMode.classic)
     // element 组件大小
     const size = ref(Size.default)
-    // 当前系统语言
-    const locale = ref(Locale.zh)
     // 当前页面是否全屏
     const maximize = ref(false)
     // 主题颜色
     const primary = ref(DEFAULT_PRIMARY)
     // 深色模式
     const isDark = ref(false)
+    // 模式类型
+    const colorMode = ref<ThemeColorMode>(ThemeColorMode.auto)
     // 灰色模式
     const isGrey = ref(false)
     // 色弱模式
@@ -50,10 +50,10 @@ export const useGlobalStore = defineStore(
     const settingsMap: Record<string, Ref<SettingsValue>> = {
       layout,
       size,
-      locale,
       maximize,
       primary,
       isDark,
+      colorMode,
       isGrey,
       isWeak,
       asideInverted,
@@ -78,10 +78,10 @@ export const useGlobalStore = defineStore(
     return {
       layout,
       size,
-      locale,
       maximize,
       primary,
       isDark,
+      colorMode,
       isGrey,
       isWeak,
       asideInverted,

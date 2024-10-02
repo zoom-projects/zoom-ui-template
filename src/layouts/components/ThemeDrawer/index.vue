@@ -4,6 +4,7 @@ import { useTheme } from '@/hooks/useTheme'
 import { useGlobalStore } from '@/store'
 import { LayoutMode } from '@/utils/enums'
 import mittBus from '@/utils/mittBus'
+import { isObject } from '@vueuse/core'
 import { ElDrawer, ElTooltip } from 'element-plus'
 // 打开主题设置
 const drawerVisible = ref(false)
@@ -15,6 +16,7 @@ const {
   primary,
   isGrey,
   isWeak,
+  colorMode,
   asideInverted,
   headerInverted,
   isCollapse,
@@ -26,6 +28,27 @@ const {
   tabsIcon,
   footer,
 } = storeToRefs(globalStore)
+
+const colorModeOptions = [
+  {
+    label: '浅色',
+    value: 'light',
+    icon: 'svg-icon:sunny',
+    tips: '切换为浅色模式',
+  },
+  {
+    label: '深色',
+    value: 'dark',
+    icon: 'svg-icon:moon',
+    tips: '切换为深色模式',
+  },
+  {
+    label: '自动',
+    value: 'auto',
+    icon: 'svg-icon:sun-moon',
+    tips: '根据系统自动切换',
+  },
+]
 
 const { changePrimary, changeGreyOrWeak, setAsideTheme, setHeaderTheme } = useTheme()
 
@@ -136,45 +159,65 @@ const colorList = [
       <ElColorPicker v-model="primary" :predefine="colorList" @change="changePrimary" />
     </div>
     <div class="theme-item">
+      <span>暗黑模式</span>
+      <ElSegmented v-model="colorMode" :options="colorModeOptions">
+        <template #default="{ item }">
+          <ElTooltip :content="isObject(item) ? item.tips : item" placement="top">
+            <ReIcon :icon="isObject(item) ? item.icon : item" class="el-icon" />
+          </ElTooltip>
+        </template>
+      </ElSegmented>
+    </div>
+    <div class="theme-item">
       <span>灰色模式</span>
       <ElSwitch v-model="isGrey" @change="changeGreyOrWeak('grey', !!$event)" />
     </div>
+
     <div class="theme-item mb40">
       <span>色弱模式</span>
       <ElSwitch v-model="isWeak" @change="changeGreyOrWeak('weak', !!$event)" />
     </div>
+
     <!-- 界面设置 -->
     <ElDivider class="divider" content-position="center">
       界面设置
     </ElDivider>
+
     <div class="theme-item">
       <span>菜单折叠</span>
       <ElSwitch v-model="isCollapse" />
     </div>
+
     <div class="theme-item">
       <span>菜单手风琴</span>
       <ElSwitch v-model="isAccordion" />
     </div>
+
     <div class="theme-item">
       <span>水印</span>
       <ElSwitch v-model="watermark" />
     </div>
+
     <div class="theme-item">
       <span>面包屑</span>
       <ElSwitch v-model="breadcrumb" />
     </div>
+
     <div class="theme-item">
       <span>面包屑图标</span>
       <ElSwitch v-model="breadcrumbIcon" />
     </div>
+
     <div class="theme-item">
       <span>标签栏</span>
       <ElSwitch v-model="tabs" />
     </div>
+
     <div class="theme-item">
       <span>标签栏图标</span>
       <ElSwitch v-model="tabsIcon" />
     </div>
+
     <div class="theme-item">
       <span>页脚</span>
       <ElSwitch v-model="footer" />

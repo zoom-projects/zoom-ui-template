@@ -9,7 +9,7 @@ import { AES, SHA, str2Hex } from '/src/utils/crypto'
  *  用户名登录
  * @param params .
  */
-export async function loginApiByUsername(params: Login.ReqLoginForm) {
+export async function loginApiByUsernameApi(params: Login.ReqLoginForm) {
   const timestamp = new Date().getTime()
   const iv = random(16)
   const _key = await SHA.has256Hex(iv + timestamp)
@@ -21,6 +21,14 @@ export async function loginApiByUsername(params: Login.ReqLoginForm) {
     captchaKey: iv,
     timestamp,
   }, { loading: false })
+}
+
+/**
+ *  登出
+ * @returns
+ */
+export async function logoutApi() {
+  return http.post(`${SERVER1}/sys/auth/logout`, {}, { loading: false })
 }
 
 // 获取菜单列表
