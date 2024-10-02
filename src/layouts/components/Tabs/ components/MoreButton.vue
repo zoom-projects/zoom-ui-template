@@ -1,8 +1,7 @@
 <script setup lang="ts">
 import { HOME_URL } from '@/config'
+import { useKeepAliveStore, useTabsStore } from '@/store'
 // import { useGlobalStore } from '@/store'
-import { useKeepAliveStore } from '@/store/modules/keepAlive'
-import { useTabsStore } from '@/store/modules/tabs'
 
 const route = useRoute()
 const router = useRouter()

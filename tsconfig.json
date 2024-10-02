@@ -11,6 +11,7 @@
 
     "moduleResolution": "bundler",
     "paths": {
+      "/*": ["./*", "./public/*"],
       "@/*": ["src/*"],
       "@build/*": ["build/*"],
       "#/*": ["types/*"]
@@ -38,7 +39,8 @@
     "src/**/*.tsx",
     "src/**/*.vue",
     "types/*.d.ts",
-    "build/**/*.ts"
-, "src/components/IconPicker/src/data/icons.ep.ts"  ],
+    "build/**/*.ts",
+    "src/components/IconPicker/src/data/icons.ep.ts"
+  ],
   "exclude": ["node_modules", "dist", "**/*.js"]
 }

@@ -11,4 +11,8 @@ export function setupStore(app: App<Element>) {
 
 export * from './modules/auth'
 export * from './modules/global'
+export * from './modules/keepAlive'
+export * from './modules/tabs'
+export * from './modules/user'
+
 export { store }

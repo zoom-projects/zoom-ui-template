@@ -24,3 +24,11 @@ export enum Locale {
   // 英文
   en = 'en',
 }
+
+// 登录类型
+export enum LoginType {
+  username = 'username',
+  phone = 'phone',
+  register = 'register',
+  other = 'other',
+}

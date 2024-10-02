@@ -1,6 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { LOGIN_URL } from '@/config'
-import { useAuthStore } from '@/store'
+import { useAuthStore, useUserStore } from '@/store'
 import { ElNotification } from 'element-plus'
 import router from '..'
 
@@ -11,6 +11,7 @@ const modules = import.meta.glob('@/views/**/*.vue')
  * @description 初始化动态路由
  */
 export async function initDynamicRouter() {
+  const userStore = useUserStore()
   const authStore = useAuthStore()
   try {
     await authStore.getAuthMenuList()
@@ -22,7 +23,7 @@ export async function initDynamicRouter() {
         type: 'warning',
         duration: 3000,
       })
-      // userStore.setToken('')
+      userStore.setToken('')
       router.replace(LOGIN_URL)
       // eslint-disable-next-line prefer-promise-reject-errors
       return Promise.reject('No permission')
@@ -44,7 +45,7 @@ export async function initDynamicRouter() {
   }
   catch (error) {
     // 当按钮 || 菜单请求出错时，重定向到登陆页
-    // userStore.setToken('')
+    userStore.setToken('')
     // 当按钮 || 菜单请求出错时，重定向到登陆页
     router.replace(LOGIN_URL)
     return Promise.reject(error)

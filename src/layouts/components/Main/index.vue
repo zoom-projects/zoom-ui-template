@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Component } from 'vue'
-import { useGlobalStore } from '@/store'
-import { useKeepAliveStore } from '@/store/modules/keepAlive'
+import { useGlobalStore, useKeepAliveStore } from '@/store'
 
 const globalStore = useGlobalStore()
 const keepAliveStore = useKeepAliveStore()

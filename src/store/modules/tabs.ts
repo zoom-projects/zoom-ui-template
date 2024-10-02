@@ -1,14 +1,13 @@
 import router from '@/router'
 import { getUrlWithParams } from '@/utils'
-import { store } from '..'
+import { store, useKeepAliveStore } from '..'
 import piniaPersistConfig from '../helper/persist'
-import { useKeepAliveStore } from './keepAlive'
-
-const keepAliveStore = useKeepAliveStore()
 
 export const useTabsStore = defineStore(
   'app-tabs',
   () => {
+    const keepAliveStore = useKeepAliveStore()
+
     const tabsMenuList = ref<Tabs.TabsMenuProps[]>([])
 
     // Add Tabs

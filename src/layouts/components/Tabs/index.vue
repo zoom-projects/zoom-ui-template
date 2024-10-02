@@ -1,9 +1,7 @@
 <script setup lang="ts">
 import type { TabPaneName, TabsPaneContext } from 'element-plus'
 import { HOME_URL } from '@/config'
-import { useAuthStore, useGlobalStore } from '@/store'
-import { useKeepAliveStore } from '@/store/modules/keepAlive'
-import { useTabsStore } from '@/store/modules/tabs'
+import { useAuthStore, useGlobalStore, useKeepAliveStore, useTabsStore } from '@/store'
 
 const route = useRoute()
 const router = useRouter()

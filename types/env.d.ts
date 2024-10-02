@@ -17,6 +17,10 @@ declare interface ViteEnv {
    * @description:  route mode [hash, history]
    */
   readonly VITE_ROUTER_MODE: 'hash' | 'history'
+  /**
+   * @description:  base api
+   */
+  readonly VITE_API_URL: string
 }
 
 interface ImportMetaEnv extends ViteEnv {

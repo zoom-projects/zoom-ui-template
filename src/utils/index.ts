@@ -49,3 +49,18 @@ export function getUrlWithParams(): string {
   }
   return url[mode]
 }
+
+/**
+ * @description 生成随机字符串
+ * @param length 长度
+ * @returns {string}
+ */
+export function random(length: number = 16): string {
+  const chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+  const maxPos = chars.length
+  let result = ''
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * maxPos))
+  }
+  return result
+}
