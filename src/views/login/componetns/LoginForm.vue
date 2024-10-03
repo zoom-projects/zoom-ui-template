@@ -4,6 +4,7 @@ import { ElForm } from 'element-plus'
 import Motion from '../utils/motion'
 import PhoneLogin from './PhoneLogin.vue'
 import Register from './Register.vue'
+import ResetPassword from './ResetPassword.vue'
 import { loginApiByUsernameApi } from '/src/api/modules/login'
 import { useUserStore } from '/src/store'
 
@@ -62,7 +63,7 @@ function changeLoginType(type: LoginType) {
         <ElFormItem prop="username">
           <ElInput
             v-model="loginForm.username"
-            placeholder="用户名"
+            placeholder="支持用户名、邮箱、手机号"
           >
             <template #prefix>
               <ReIcon icon="svg-icon:user" class="el-icon" />
@@ -90,6 +91,7 @@ function changeLoginType(type: LoginType) {
           <ElButton
             link
             type="primary"
+            @click="changeLoginType('reset' as LoginType)"
           >
             忘记密码？
           </ElButton>
@@ -131,7 +133,7 @@ function changeLoginType(type: LoginType) {
               <ReIcon
                 icon="svg-icon:github-fill"
                 :size="20"
-                class="cursor-pointer text-gray-500 hover:text-blue-400"
+                class="cursor-pointer text-gray-500 dark:text-gray-200 hover:text-blue-400 dark:hover:text-blue-300"
               />
             </div>
           </ElFormItem>
@@ -141,6 +143,7 @@ function changeLoginType(type: LoginType) {
   </template>
   <PhoneLogin v-if="currentLoginType === 'phone'" />
   <Register v-if="currentLoginType === 'register'" />
+  <ResetPassword v-if="currentLoginType === 'reset'" />
 </template>
 
 <style scoped lang="scss">

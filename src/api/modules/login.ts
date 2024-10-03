@@ -15,9 +15,27 @@ export async function loginApiByUsernameApi(params: Login.ReqLoginForm) {
   const _key = await SHA.has256Hex(iv + timestamp)
   const _iv = await str2Hex(iv)
   const data = await AES.encryptHex(params.password, _key, _iv)
-  return http.post<string>(`${SERVER1}/sys/auth/login`, {
+  return http.post<string>(`${SERVER1}/sys/auth/login/password`, {
     username: params.username,
     password: data,
+    captchaKey: iv,
+    timestamp,
+  }, { loading: false })
+}
+
+/**
+ *  手机号登录
+ * @param params .
+ */
+export async function loginApiByPhoneApi(params: Login.ReqLoginPhoneForm) {
+  const timestamp = new Date().getTime()
+  const iv = random(16)
+  const _key = await SHA.has256Hex(iv + timestamp)
+  const _iv = await str2Hex(iv)
+  const data = await AES.encryptHex(params.phone, _key, _iv)
+  return http.post<string>(`${SERVER1}/sys/auth/login/mobile`, {
+    phone: data,
+    captchaCode: params.code,
     captchaKey: iv,
     timestamp,
   }, { loading: false })

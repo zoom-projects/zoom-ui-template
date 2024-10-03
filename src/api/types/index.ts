@@ -38,6 +38,10 @@ export namespace Login {
     username: string
     password: string
   }
+  export interface ReqLoginPhoneForm {
+    phone: string
+    code: string
+  }
 
   export interface ResLogin {
   }

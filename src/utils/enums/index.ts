@@ -40,4 +40,5 @@ export enum LoginType {
   phone = 'phone',
   register = 'register',
   other = 'other',
+  reset = 'reset',
 }

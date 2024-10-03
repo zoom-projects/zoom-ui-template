@@ -61,6 +61,8 @@ function onBreadcrumbClick(item: Menu.MenuOptions, index: number) {
       }
       .el-breadcrumb__inner {
         display: inline-flex;
+        align-items: center;
+        text-align: center;
         &.is-link {
           color: var(--el-header-text-color);
           &:hover {
@@ -70,10 +72,12 @@ function onBreadcrumbClick(item: Menu.MenuOptions, index: number) {
         .breadcrumb-icon {
           margin-top: 1px;
           margin-right: 6px;
-          font-size: 16px;
+          font-size: 18px;
         }
         .breadcrumb-title {
           margin-top: 2px;
+          font-size: var(--el-menu-item-font-size);
+
         }
       }
       &:last-child .el-breadcrumb__inner,

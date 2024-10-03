@@ -120,14 +120,11 @@ export function useTheme() {
   const darkMediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
   function updateTheme() {
     const isDark = darkMediaQuery.matches
-    if (isDark && colorMode.value === 'auto') {
-      // globalStore.isDark = true
-      globalStore.setGlobalState('isDark', true)
-      return
+    if (colorMode.value === 'auto') {
+      globalStore.isDark = isDark
     }
     if (colorMode.value !== 'auto') {
       globalStore.isDark = colorMode.value === 'dark'
-      // globalStore.setGlobalState('isDark', colorMode.value === 'dark')
     }
   }
   // 监听暗黑模式变化

@@ -4,12 +4,12 @@ import Motion from '../utils/motion'
 import { useUserStore } from '/src/store'
 import { LoginType } from '/src/utils/enums'
 
-const userStore = useUserStore()
 type FormInstance = InstanceType<typeof ElForm>
 const ruleFormRef = ref<FormInstance>()
 
+const userStore = useUserStore()
+
 const updateRules = reactive({
-  username: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
   phone: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
   verifyCode: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
   password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
@@ -17,13 +17,14 @@ const updateRules = reactive({
 })
 
 const ruleForm = reactive<any>({
-  username: '',
   phone: '',
   verifyCode: '',
   password: '',
   repeatPassword: '',
-  readAccept: false,
 })
+
+function onSubmit() {
+}
 
 function onBack() {
   userStore.loginType = LoginType.username
@@ -38,19 +39,6 @@ function onBack() {
     size="large"
   >
     <Motion>
-      <ElFormItem prop="username">
-        <ElInput
-          v-model="ruleForm.username"
-          placeholder="请输入用户名"
-          clearable
-        >
-          <template #prefix>
-            <ReIcon icon="svg-icon:user" class="el-icon" />
-          </template>
-        </ElInput>
-      </ElFormItem>
-    </Motion>
-    <Motion :delay="100">
       <ElFormItem prop="phone">
         <ElInput
           v-model="ruleForm.phone"
@@ -63,9 +51,9 @@ function onBack() {
         </ElInput>
       </ElFormItem>
     </Motion>
-    <Motion :delay="150">
+    <Motion :delay="100">
       <ElFormItem prop="verifyCode">
-        <div class="w-full flex justify-between">
+        <div class="flex justify-between">
           <ElInput
             v-model="ruleForm.verifyCode"
             placeholder="请输入验证码"
@@ -81,13 +69,27 @@ function onBack() {
         </div>
       </ElFormItem>
     </Motion>
-    <Motion :delay="200">
+    <Motion :delay="150">
       <ElFormItem prop="password">
         <ElInput
           v-model="ruleForm.password"
-          type="password"
           placeholder="请输入密码"
           clearable
+          show-password
+        >
+          <template #prefix>
+            <ReIcon icon="svg-icon:lock" class="el-icon" />
+          </template>
+        </ElInput>
+      </ElFormItem>
+    </Motion>
+    <Motion :delay="200">
+      <ElFormItem prop="repeatPassword">
+        <ElInput
+          v-model="ruleForm.repeatPassword"
+          placeholder="请再次输入密码"
+          clearable
+          show-password
         >
           <template #prefix>
             <ReIcon icon="svg-icon:lock" class="el-icon" />
@@ -96,38 +98,17 @@ function onBack() {
       </ElFormItem>
     </Motion>
     <Motion :delay="250">
-      <ElFormItem prop="repeatPassword">
-        <ElInput
-          v-model="ruleForm.repeatPassword"
-          type="password"
-          placeholder="请再次输入密码"
-          clearable
+      <ElFormItem>
+        <ElButton
+          type="primary"
+          class="w-full"
+          @click="onSubmit"
         >
-          <template #prefix>
-            <ReIcon icon="svg-icon:lock" class="el-icon" />
-          </template>
-        </ElInput>
+          重置密码
+        </ElButton>
       </ElFormItem>
     </Motion>
     <Motion :delay="300">
-      <ElFormItem>
-        <ElCheckbox v-model="ruleForm.readAccept">
-          我已阅读并同意
-        </ElCheckbox>
-        <ElButton link type="primary">
-          <a href="#">《用户协议》</a>
-        </ElButton>
-      </ElFormItem>
-    </Motion>
-    <Motion :delay="350">
-      <ElFormItem>
-        <ElButton class="w-full" type="primary">
-          注册并登录
-        </ElButton>
-      </ElFormItem>
-    </Motion>
-
-    <Motion :delay="400">
       <ElFormItem>
         <ElButton class="w-full" size="default" @click="onBack">
           返回
