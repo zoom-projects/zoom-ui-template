@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import type { System } from '/src/api/types'
 import type { TreeNode } from 'element-plus'
 import type { ActionBarButtonsRow, PlusColumn, PlusPage } from 'plus-pro-components'
 import type { FormItemProps } from './utils/type'
@@ -7,10 +6,10 @@ import * as permissionApi from '@/api/modules/system/permission'
 import Form from './form.vue'
 import { menuTypeOptions } from './utils/enums'
 import { logicOptions } from '/src/enums/logicEnums'
+import { deepTree } from '/src/utils'
 
 const plusPageRef = ref<InstanceType<typeof PlusPage>>()
 
-const maps = new Map()
 const currentRow = ref<any>()
 const currentInfo = ref<FormItemProps>({})
 const dialogFormVisible = ref(false)
@@ -39,6 +38,7 @@ const tableColumns: PlusColumn[] = [
   {
     label: '权限标识',
     prop: 'perms',
+    valueType: 'tag',
     hideInSearch: true,
   },
   {
@@ -104,12 +104,8 @@ const tableActionButtions: ActionBarButtonsRow[] = [
  */
 async function loadData(query: Record<string, any>) {
   const { data, success } = await permissionApi.list(query)
-  data.forEach((item: any) => {
-    if (!item.leaf) {
-      item.hasChildren = true
-    }
-  })
-  return { data, success, total: 0 }
+  const _data = onData(data)
+  return { data: _data, success, total: 0 }
 }
 /**
  * 新增
@@ -134,69 +130,41 @@ function handleEdit(row: any) {
  */
 async function handleDelete(row: any) {
   await permissionApi.del(row.id)
-  refreshLoadTree(row.parentId)
+  formSuccess()
+}
+
+// 解决子集过多导致展开卡顿
+function onData(list: any) {
+  const data = deepTree(list)
+  // 递归处理
+  function deep(data: any) {
+    data.forEach((item: any) => {
+      const nodes = plusPageRef.value?.plusTableInstance?.tableInstance?.store?.states?.lazyTreeNodeMap.value || {}
+      if (nodes[item.id!]) {
+        nodes[item.id!] = item.children!
+      }
+
+      if (item.children && item.children.length > 0) {
+        item.hasChildren = true
+        item._children = item.children
+        delete item.children
+        deep(item._children!)
+      }
+    })
+  }
+  deep(data)
+  return data
 }
 
 /**
  * 加载子节点
  * @param row .
  */
-async function loadChild(row: any, treeNode: TreeNode, resolve: (data: any[]) => void) {
-  // 将当前选中节点数据存储到map中
-  maps.set(row.id, { row, treeNode, resolve })
-  const params: System.PermissionQuery = { parentId: row.id }
-  const { data } = await permissionApi.list(params)
-  data.forEach((item: any) => {
-    if (!item.leaf) {
-      item.hasChildren = true
-    }
-  })
-  resolve(data)
-}
-function refreshLoadTree(parentId: string) {
-  if (!parentId) {
-    plusPageRef.value?.getList()
-    return
-  }
-  if (maps.get(parentId)) {
-    const { row, treeNode, resolve } = maps.get(parentId)
-    const lazyTreeNodeMap = plusPageRef.value?.plusTableInstance?.tableInstance?.store?.states?.lazyTreeNodeMap
-    if (lazyTreeNodeMap) {
-      lazyTreeNodeMap.value[parentId] = []
-    }
-    if (row) {
-      loadChild(row, treeNode, resolve)
-      if (row.parentId) {
-        const node: any = maps.get(row.parentId) || {}
-        loadChild(node.row, node.treeNode, node.resolve)
-      }
-    }
-  }
-  else {
-    // 把数据加到父级节点上去
-    const store = plusPageRef.value?.plusTableInstance?.tableInstance?.store
-    const parentNode = store.states.treeData.value[parentId]
-    // 如果在已加载过的节点的子节点中
-    if (parentNode) {
-      if (parentNode.loaded) {
-        store.states.lazyTreeNodeMap.value[parentId].push(currentInfo.value)
-      }
-    }
-    else {
-      store.states.treeData.value[parentId] = {
-        children: [],
-        display: true,
-        expanded: false,
-        lazy: true,
-        level: 0,
-        loaded: false,
-        loading: false,
-      }
-    }
-  }
+async function loadChild(row: any, _: TreeNode, resolve: (data: any[]) => void) {
+  resolve(row._children || [])
 }
 function formSuccess() {
-  refreshLoadTree(currentInfo.value.parentId!)
+  plusPageRef.value?.getList()
 }
 </script>
 
