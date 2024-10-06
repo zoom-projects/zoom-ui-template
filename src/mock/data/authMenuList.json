@@ -18,12 +18,12 @@
       }
     },
     {
-      "path": "/proTable",
-      "name": "proTable",
-      "redirect": "/proTable/useProTable",
+      "path": "/system",
+      "name": "system",
+      "redirect": "/system/user",
       "meta": {
-        "icon": "i-ep:apple",
-        "title": "超级表格",
+        "icon": "i-ep:setting",
+        "title": "系统管理",
         "isLink": "",
         "isHide": false,
         "isFull": false,
@@ -32,43 +32,12 @@
       },
       "children": [
         {
-          "path": "/proTable/useProTable",
-          "name": "useProTable",
-          "component": "/proTable/useProTable/index",
+          "path": "/system/user",
+          "name": "system-user",
+          "component": "/system/user/index",
           "meta": {
-            "icon": "i-ep:menu",
-            "title": "使用 ProTable",
-            "isLink": "",
-            "isHide": false,
-            "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
-          },
-          "children": [
-            {
-              "path": "/proTable/useProTable/detail/:id",
-              "name": "useProTableDetail",
-              "component": "/proTable/useProTable/detail",
-              "meta": {
-                "icon": "i-ep:menu",
-                "title": "ProTable 详情",
-                "activeMenu": "/proTable/useProTable",
-                "isLink": "",
-                "isHide": true,
-                "isFull": false,
-                "isAffix": false,
-                "isKeepAlive": true
-              }
-            }
-          ]
-        },
-        {
-          "path": "/proTable/useTreeFilter",
-          "name": "useTreeFilter",
-          "component": "/proTable/useTreeFilter/index",
-          "meta": {
-            "icon": "i-ep:menu",
-            "title": "使用 TreeFilter",
+            "icon": "i-ep:user-filled",
+            "title": "用户管理",
             "isLink": "",
             "isHide": false,
             "isFull": false,
@@ -77,27 +46,12 @@
           }
         },
         {
-          "path": "/proTable/useTreeFilter/detail/:id",
-          "name": "useTreeFilterDetail",
-          "component": "/proTable/useTreeFilter/detail",
+          "path": "/system/role",
+          "name": "system-role",
+          "component": "/system/role/index",
           "meta": {
-            "icon": "i-ep:menu",
-            "title": "TreeFilter 详情",
-            "activeMenu": "/proTable/useTreeFilter",
-            "isLink": "",
-            "isHide": true,
-            "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
-          }
-        },
-        {
-          "path": "/proTable/useSelectFilter",
-          "name": "useSelectFilter",
-          "component": "/proTable/useSelectFilter/index",
-          "meta": {
-            "icon": "i-ep:menu",
-            "title": "使用 SelectFilter",
+            "icon": "i-ri:admin-fill",
+            "title": "角色管理",
             "isLink": "",
             "isHide": false,
             "isFull": false,
@@ -106,41 +60,13 @@
           }
         },
         {
-          "path": "/proTable/treeProTable",
-          "name": "treeProTable",
-          "component": "/proTable/treeProTable/index",
+          "path": "/system/menu",
+          "name": "system-menu",
+          "component": "/system/permission/index",
           "meta": {
             "icon": "i-ep:menu",
-            "title": "树形 ProTable",
+            "title": "菜单管理",
             "isLink": "",
-            "isHide": false,
-            "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
-          }
-        },
-        {
-          "path": "/proTable/complexProTable",
-          "name": "complexProTable",
-          "component": "/proTable/complexProTable/index",
-          "meta": {
-            "icon": "i-ep:menu",
-            "title": "复杂 ProTable",
-            "isLink": "",
-            "isHide": false,
-            "isFull": false,
-            "isAffix": false,
-            "isKeepAlive": true
-          }
-        },
-        {
-          "path": "/proTable/document",
-          "name": "proTableDocument",
-          "component": "/proTable/document/index",
-          "meta": {
-            "icon": "i-ep:menu",
-            "title": "ProTable 文档",
-            "isLink": "https://juejin.cn/post/7166068828202336263/#heading-14",
             "isHide": false,
             "isFull": false,
             "isAffix": false,

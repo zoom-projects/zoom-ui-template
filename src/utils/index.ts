@@ -1,3 +1,5 @@
+export * from './install'
+
 const mode = import.meta.env.VITE_ROUTER_MODE ?? 'history'
 /**
  * @description 使用递归找出所有面包屑存储到 pinia/vuex 中
@@ -63,4 +65,63 @@ export function random(length: number = 16): string {
     result += chars.charAt(Math.floor(Math.random() * maxPos))
   }
   return result
+}
+
+/**
+ *
+ * @description 拷贝
+ * @param data 需要拷贝的数据
+ * @param deep 是否深拷贝
+ * @returns {T}
+ */
+export function clone<T>(data: T, deep: boolean = false): T {
+  return deep ? deepClone(data) : shallowClone(data)
+}
+
+/**
+ * @description 浅拷贝
+ * @param data 需要拷贝的数据
+ */
+export function shallowClone<T>(data: T): T {
+  // 引用类型需要开辟一个新的存储地址
+  if (data != null && typeof data === 'object') {
+    const copy = Array.isArray(data) ? [] : {}
+    for (const prop in data) {
+      if (Object.prototype.hasOwnProperty.call(data, prop)) {
+        (copy as any)[prop] = (data as any)[prop]
+      }
+    }
+    return copy as T
+  }
+  return data
+}
+
+/**
+ *
+ * @description 深拷贝
+ * @param data 需要拷贝的数据
+ * @param hash 用于存储已拷贝的数据
+ */
+export function deepClone<T>(data: T, hash = new WeakMap()): T {
+  // 如果是null或者undefined我就不进行拷贝操作
+  if (data === null || typeof data !== 'object')
+    return data
+  // 是时间就进行new Date
+  if (data instanceof Date)
+    return new Date(data) as unknown as T
+  // 是正则对象就进行new RegExp
+  if (data instanceof RegExp)
+    return new RegExp(data.source, data.flags) as unknown as T
+  // 可能是对象或者普通的数组
+  const instance = new (data as any).constructor()
+  if (hash.has(data))
+    return hash.get(data)
+  hash.set(data, instance)
+  for (const key in data) {
+    // eslint-disable-next-line no-prototype-builtins
+    if (data.hasOwnProperty(key)) {
+      instance[key] = deepClone((data as any)[key], hash)
+    }
+  }
+  return instance
 }

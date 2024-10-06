@@ -126,21 +126,21 @@ export function useTheme() {
     if (colorMode.value !== 'auto') {
       globalStore.isDark = colorMode.value === 'dark'
     }
+    switchDark()
   }
   // 监听暗黑模式变化
   function removeWatchDarkMode() {
-    window.removeEventListener('change', updateTheme)
+    darkMediaQuery.removeEventListener('change', updateTheme)
   }
   function watchDarkMode() {
     updateTheme()
     removeWatchDarkMode()
-    window.addEventListener('change', updateTheme)
+    darkMediaQuery.addEventListener('change', updateTheme)
   }
 
   // 监听主题模式变化
   watch(colorMode, () => {
     updateTheme()
-    switchDark()
   })
 
   onMounted(() => {

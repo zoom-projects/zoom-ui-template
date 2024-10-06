@@ -15,7 +15,7 @@ export async function loginApiByUsernameApi(params: Login.ReqLoginForm) {
   const _key = await SHA.has256Hex(iv + timestamp)
   const _iv = await str2Hex(iv)
   const data = await AES.encryptHex(params.password, _key, _iv)
-  return http.post<string>(`${SERVER1}/sys/auth/login/password`, {
+  return http.post<string>(`${SERVER1}/auth/login/password`, {
     username: params.username,
     password: data,
     captchaKey: iv,
@@ -33,7 +33,7 @@ export async function loginApiByPhoneApi(params: Login.ReqLoginPhoneForm) {
   const _key = await SHA.has256Hex(iv + timestamp)
   const _iv = await str2Hex(iv)
   const data = await AES.encryptHex(params.phone, _key, _iv)
-  return http.post<string>(`${SERVER1}/sys/auth/login/mobile`, {
+  return http.post<string>(`${SERVER1}/auth/login/mobile`, {
     phone: data,
     captchaCode: params.code,
     captchaKey: iv,
@@ -46,12 +46,12 @@ export async function loginApiByPhoneApi(params: Login.ReqLoginPhoneForm) {
  * @returns
  */
 export async function logoutApi() {
-  return http.post(`${SERVER1}/sys/auth/logout`, {}, { loading: false })
+  return http.post(`${SERVER1}/auth/logout`, {}, { loading: false })
 }
 
 // 获取菜单列表
 export function getAuthMenuListApi() {
   // return http.get<Menu.MenuOptions[]>(PORT1 + `/menu/list`, {}, { loading: false });
   // 如果想让菜单变为本地数据，注释上一行代码，并引入本地 authMenuList.json 数据
-  return authMenuList
+  return http.get(`${SERVER1}/auth/menu`, {}, { loading: false }).then(() => authMenuList)
 }

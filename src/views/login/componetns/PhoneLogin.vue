@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { useUserStore } from '@/store'
+import { LoginType } from '@/utils/enums'
 import { ElForm } from 'element-plus'
 import Motion from '../utils/motion'
-import { useUserStore } from '/src/store'
-import { LoginType } from '/src/utils/enums'
+import { useVerifyCode } from '../utils/verifyCode'
 
+const { isDisabled, text } = useVerifyCode()
 const useStore = useUserStore()
 type FormInstance = InstanceType<typeof ElForm>
 const ruleFormRef = ref<FormInstance>()
@@ -46,14 +48,24 @@ function onBack() {
     </Motion>
     <Motion :delay="100">
       <ElFormItem prop="code">
-        <ElInput
-          v-model="ruleForm.code"
-          placeholder="验证码"
-        >
-          <template #prefix>
-            <ReIcon icon="svg-icon:shield-keyhole-line" class="el-icon" />
-          </template>
-        </ElInput>
+        <div class="flex justify-between">
+          <ElInput
+            v-model="ruleForm.code"
+            placeholder="验证码"
+            clearable
+          >
+            <template #prefix>
+              <ReIcon icon="svg-icon:security-shield-fill" class="el-icon" />
+            </template>
+          </ElInput>
+          <ElButton
+            class="ml-2"
+            :disabled="isDisabled"
+            @click="useVerifyCode().start(ruleFormRef, 'phone')"
+          >
+            {{ text.length > 0 ? `${text} 秒后重新获取` : '获取验证码' }}
+          </ElButton>
+        </div>
       </ElFormItem>
     </Motion>
     <Motion :delay="150">

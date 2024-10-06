@@ -1,9 +1,11 @@
 <script setup lang="ts">
+import { useUserStore } from '@/store'
+import { LoginType } from '@/utils/enums'
 import { ElForm } from 'element-plus'
 import Motion from '../utils/motion'
-import { useUserStore } from '/src/store'
-import { LoginType } from '/src/utils/enums'
+import { useVerifyCode } from '../utils/verifyCode'
 
+const { isDisabled, text } = useVerifyCode()
 const userStore = useUserStore()
 type FormInstance = InstanceType<typeof ElForm>
 const ruleFormRef = ref<FormInstance>()
@@ -75,8 +77,16 @@ function onBack() {
               <ReIcon icon="svg-icon:security-shield-fill" class="el-icon" />
             </template>
           </ElInput>
-          <ElButton class="ml-2">
-            获取验证码
+          <ElButton
+            class="ml-2"
+            :disabled="isDisabled"
+            @click="useVerifyCode().start(ruleFormRef, 'phone')"
+          >
+            {{
+              text.length > 0
+                ? `${text} 秒后重新获取`
+                : '获取验证码'
+            }}
           </ElButton>
         </div>
       </ElFormItem>
