@@ -90,7 +90,7 @@ export function deepTree(list: any[], sort?: 'desc' | 'asc'): any[] {
   const newList: any[] = []
   const map: any = {}
 
-  orderBy(list, 'orderNum', sort)
+  orderBy(list, 'sort', sort)
     .map((e) => {
       map[e.id] = e
       return e
@@ -107,4 +107,21 @@ export function deepTree(list: any[], sort?: 'desc' | 'asc'): any[] {
     })
 
   return newList
+}
+
+/**
+ *  获取list中所有key的值
+ * @param data 数据
+ * @param key 键名
+ * @returns {Array}
+ */
+export function getKeyList(data: any, key: string): any[] {
+  const list: any[] = []
+  data.forEach((item: any) => {
+    list.push(item[key])
+    if (item.children) {
+      list.push(...getKeyList(item.children, key))
+    }
+  })
+  return list
 }

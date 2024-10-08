@@ -19,6 +19,7 @@ declare module 'vue' {
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
     ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCheckbox: typeof import('element-plus/es')['ElCheckbox']
     ElColorPicker: typeof import('element-plus/es')['ElColorPicker']
     ElConfigProvider: typeof import('element-plus/es')['ElConfigProvider']
@@ -48,6 +49,8 @@ declare module 'vue' {
     ElTabPane: typeof import('element-plus/es')['ElTabPane']
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTag: typeof import('element-plus/es')['ElTag']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
+    ElTreeV2: typeof import('element-plus/es')['ElTreeV2']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
     Footer: typeof import('./../src/layouts/components/Footer/index.vue')['default']
     Fullscreen: typeof import('./../src/layouts/components/header/components/Fullscreen.vue')['default']
@@ -59,6 +62,8 @@ declare module 'vue' {
     MoreButton: typeof import('./../src/layouts/components/Tabs/ components/MoreButton.vue')['default']
     PlusDialogForm: typeof import('plus-pro-components/es')['PlusDialogForm']
     PlusPage: typeof import('plus-pro-components/es')['PlusPage']
+    PlusSearch: typeof import('plus-pro-components/es')['PlusSearch']
+    PlusTable: typeof import('plus-pro-components/es')['PlusTable']
     ReIcon: typeof import('./../src/components/ReIcon/index.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
@@ -72,5 +77,8 @@ declare module 'vue' {
     ThemeSetting: typeof import('./../src/layouts/components/header/components/ThemeSetting.vue')['default']
     ToolBarLeft: typeof import('./../src/layouts/components/header/ToolBarLeft.vue')['default']
     ToolBarRight: typeof import('./../src/layouts/components/header/ToolBarRight.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

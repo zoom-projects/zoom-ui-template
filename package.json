@@ -27,7 +27,8 @@
     "plus-pro-components": "^0.1.16",
     "qs": "^6.13.0",
     "vue": "^3.4.37",
-    "vue-router": "^4.4.5"
+    "vue-router": "^4.4.5",
+    "vue-tippy": "v6"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^3.7.3",

@@ -6,8 +6,8 @@ import { SERVER1 } from '../../config/server'
  *  菜单树
  * @returns .
  */
-export function tree() {
-  return http.get<System.PermissionTree[]>(`${SERVER1}/sys/permission/tree`, { loading: false })
+export function tree(query?: System.PermissionTreeQuery) {
+  return http.get<System.PermissionTree[]>(`${SERVER1}/sys/permission/tree`, query)
 }
 
 /**
@@ -17,7 +17,7 @@ export function tree() {
  * @returns
  */
 export function list(query?: System.PermissionQuery) {
-  return http.get<any>(`${SERVER1}/sys/permission/list`, query, { loading: false })
+  return http.get<any>(`${SERVER1}/sys/permission/list`, query)
 }
 
 /**
@@ -26,7 +26,7 @@ export function list(query?: System.PermissionQuery) {
  * @returns .
  */
 export function save(data: System.ReqPermissionForm) {
-  return http.post<string>(`${SERVER1}/sys/permission/save`, data, { loading: false })
+  return http.post<string>(`${SERVER1}/sys/permission/save`, data)
 }
 
 /**
@@ -35,7 +35,7 @@ export function save(data: System.ReqPermissionForm) {
  * @returns
  */
 export function del(id: string) {
-  return http.delete<string>(`${SERVER1}/sys/permission/del`, { id }, { loading: false })
+  return http.delete<string>(`${SERVER1}/sys/permission/del`, { id })
 }
 
 /**

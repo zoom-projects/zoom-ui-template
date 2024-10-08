@@ -200,7 +200,9 @@ function formSuccess() {
     <Form
       v-model="currentInfo"
       v-model:visible="dialogFormVisible"
+      :dialog-form-title="currentInfo.id ? '编辑权限' : '新增权限'"
       @success="formSuccess"
+      
     />
   </div>
 </template>
