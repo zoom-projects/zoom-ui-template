@@ -34,7 +34,7 @@ export namespace Upload {
 }
 
 // 登录模块
-export namespace Login {
+export namespace Auth {
   export interface ReqLoginForm {
     username: string
     password: string
@@ -42,6 +42,15 @@ export namespace Login {
   export interface ReqLoginPhoneForm {
     phone: string
     code: string
+  }
+  /**
+   * 重置密码
+   */
+  export interface ReqRestPasswordForm {
+    // 旧密码
+    oldPassword: string
+    // 新密码
+    newPassword: string
   }
 
   export interface ResLogin {

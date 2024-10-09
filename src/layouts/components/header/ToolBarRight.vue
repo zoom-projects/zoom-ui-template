@@ -11,8 +11,7 @@
       <ThemeSetting />
       <Message />
     </div>
-    <span class="username">Admin</span>
-    <Avatar />
+    <Avatar class="avatar" />
   </div>
 </template>
 
@@ -30,10 +29,8 @@
       color: var(--el-header-text-color);
     }
   }
-  .username {
-    margin: 0 20px;
-    font-size: 15px;
-    color: var(--el-header-text-color);
+  .avatar {
+    margin-left: 21px;
   }
 }
 </style>

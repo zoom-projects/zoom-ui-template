@@ -1,4 +1,4 @@
-import type { Login } from '../types'
+import type { Auth } from '../types'
 import http from '@/api'
 import authMenuList from '@/mock/data/authMenuList.json'
 import { SERVER1 } from '../config/server'
@@ -9,7 +9,7 @@ import { AES, SHA, str2Hex } from '/src/utils/crypto'
  *  用户名登录
  * @param params .
  */
-export async function loginApiByUsernameApi(params: Login.ReqLoginForm) {
+export async function loginApiByUsernameApi(params: Auth.ReqLoginForm) {
   const timestamp = new Date().getTime()
   const iv = random(16)
   const _key = await SHA.has256Hex(iv + timestamp)
@@ -27,7 +27,7 @@ export async function loginApiByUsernameApi(params: Login.ReqLoginForm) {
  *  手机号登录
  * @param params .
  */
-export async function loginApiByPhoneApi(params: Login.ReqLoginPhoneForm) {
+export async function loginApiByPhoneApi(params: Auth.ReqLoginPhoneForm) {
   const timestamp = new Date().getTime()
   const iv = random(16)
   const _key = await SHA.has256Hex(iv + timestamp)
@@ -47,6 +47,34 @@ export async function loginApiByPhoneApi(params: Login.ReqLoginPhoneForm) {
  */
 export async function logoutApi() {
   return http.post(`${SERVER1}/auth/logout`, {}, { loading: false })
+}
+
+/**
+ *  获取当前用户信息
+ * @returns
+ */
+export function getCurrentUserInfoApi() {
+  return http.get(`${SERVER1}/auth/user`, {}, { loading: false })
+}
+
+/**
+ * 重置密码
+ * @returns
+ */
+export async function resetPasswordApi(data: Auth.ReqRestPasswordForm) {
+  const timestamp = new Date().getTime()
+  const iv = random(16)
+  const _key = await SHA.has256Hex(iv + timestamp)
+  const _iv = await str2Hex(iv)
+  const oldPassword = await AES.encryptHex(data.oldPassword, _key, _iv)
+  const newPassword = await AES.encryptHex(data.newPassword, _key, _iv)
+
+  return http.put<string>(`${SERVER1}/auth/user/reset_password`, {
+    oldPassword,
+    newPassword,
+    captchaKey: iv,
+    timestamp,
+  }, { loading: false })
 }
 
 // 获取菜单列表

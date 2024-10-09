@@ -1,3 +1,4 @@
+import { isEmpty as _isEmpty } from 'lodash-es'
 /**
  * @description: 判断值是否未某个类型
  */
@@ -124,4 +125,13 @@ export function isNullOrUnDef(val: unknown): val is null | undefined {
 export function isHexColor(str: string) {
   // eslint-disable-next-line regexp/no-unused-capturing-group
   return /^#?([0-9A-F]{3}|[0-9A-F]{6})$/i.test(str)
+}
+
+/**
+ * @description: 是否为空
+ * @param val 值
+ * @returns {boolean}
+ */
+export function isEmpty(val: any): boolean {
+  return _isEmpty(val)
 }

@@ -1,9 +1,10 @@
+import * as authApi from '@/api/modules/login'
+import { HOME_URL } from '@/config'
+import router from '@/router'
+import { initDynamicRouter } from '@/router/modules/dynamicRouter'
+import { LoginType } from '@/utils/enums'
 import { store, useKeepAliveStore, useTabsStore } from '..'
 import piniaPersistConfig from '../helper/persist'
-import { HOME_URL } from '/src/config'
-import router from '/src/router'
-import { initDynamicRouter } from '/src/router/modules/dynamicRouter'
-import { LoginType } from '/src/utils/enums'
 
 export const useUserStore = defineStore(
   'zoom-user',
@@ -17,7 +18,7 @@ export const useUserStore = defineStore(
     function setToken(value: string) {
       token.value = value
     }
-    const userInfo = ref({})
+    const userInfo = ref<any>({})
 
     /**
      * 登录成功后的操作
@@ -30,6 +31,22 @@ export const useUserStore = defineStore(
       keepAliveStore.setKeepAliveName([])
       // 3.跳转到首页
       router.push(HOME_URL)
+      // 4. 获取用户信息
+      _userInfo()
+      // 5. 获取按钮权限
+    }
+
+    async function afterLogout() {
+      // 1.清空 tabs、keepAlive 数据
+      userInfo.value = {}
+      token.value = ''
+    }
+
+    async function _userInfo() {
+      const { data, success } = await authApi.getCurrentUserInfoApi()
+      if (success) {
+        userInfo.value = data
+      }
     }
 
     return {
@@ -38,6 +55,7 @@ export const useUserStore = defineStore(
       userInfo,
       setToken,
       afterLogin,
+      afterLogout,
     }
   },
   {

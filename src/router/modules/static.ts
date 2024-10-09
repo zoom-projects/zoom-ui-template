@@ -25,6 +25,14 @@ export const staticRouter: RouteRecordRaw[] = [
     redirect: HOME_URL,
     children: [],
   },
+  {
+    path: '/userInfo',
+    name: 'UserInfo',
+    component: () => import('@/layouts/components/UserInfo/index.vue'),
+    meta: {
+      title: '个人设置',
+    },
+  },
 ]
 
 /**
