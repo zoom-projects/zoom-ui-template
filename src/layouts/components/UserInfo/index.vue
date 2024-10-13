@@ -2,7 +2,7 @@
 import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
 import AccountManagement from './components/AccountManagement.vue'
-import Logs from './components/Logs.vue'
+import OperatorLog from './components/OperatorLog/index.vue'
 import Preferences from './components/Preferences.vue'
 import Profile from './components/Profile.vue'
 
@@ -25,7 +25,7 @@ const panes = [
     key: 'securityLog',
     label: '安全日志',
     icon: 'svg-icon:security-shield-fill',
-    component: Logs,
+    component: OperatorLog,
   },
   {
     key: 'accountManagement',

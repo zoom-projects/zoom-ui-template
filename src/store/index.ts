@@ -10,6 +10,7 @@ export function setupStore(app: App<Element>) {
 }
 
 export * from './modules/auth'
+export * from './modules/dict/index'
 export * from './modules/global'
 export * from './modules/keepAlive'
 export * from './modules/tabs'

@@ -72,6 +72,20 @@
             "isAffix": false,
             "isKeepAlive": true
           }
+        },
+        {
+          "path": "/system/dict",
+          "name": "system-dict",
+          "component": "/system/dict/index",
+          "meta": {
+            "icon": "i-ep:memo",
+            "title": "字典管理",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
         }
       ]
     }

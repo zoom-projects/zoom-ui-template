@@ -103,7 +103,7 @@ class RequestHttp {
   /**
    * @description 常用请求方法封装
    */
-  get<T>(url: string, params?: object, _object = {}): Promise<ResultData<T>> {
+  get<T>(url: string, params?: any, _object = {}): Promise<ResultData<T>> {
     return this.service.get(url, { params, ..._object })
   }
 

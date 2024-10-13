@@ -3,7 +3,7 @@ const title = defineModel('title')
 </script>
 
 <template>
-  <div class="max-w-[70%] min-w-[180px]">
+  <div class="ml-[120px] max-w-[70%] min-w-[180px]">
     <h3 class="my-8">
       {{ title }}
     </h3>
