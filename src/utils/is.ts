@@ -135,3 +135,18 @@ export function isHexColor(str: string) {
 export function isEmpty(val: any): boolean {
   return _isEmpty(val)
 }
+
+/**
+ * 是否为邮箱
+ */
+export function isEmail(val: string): boolean {
+  // eslint-disable-next-line regexp/no-unused-capturing-group
+  return /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(val)
+}
+
+/**
+ * 是否为手机号
+ */
+export function isPhone(val: string): boolean {
+  return /^1[3-9]\d{9}$/.test(val)
+}

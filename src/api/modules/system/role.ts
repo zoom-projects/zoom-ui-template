@@ -16,8 +16,17 @@ export function hasCode(code: string, id?: string) {
  * @param params .
  * @returns .
  */
-export function page(params: System.RoleQuery) {
+export function page(params?: System.RoleQuery) {
   return http.get<ResPage<System.ResRole>>(`${SERVER1}/sys/role/page`, params, { loading: false })
+}
+
+/**
+ *  列表查询
+ * @param params
+ * @returns
+ */
+export function list(params?: System.RoleQuery) {
+  return http.get<System.ResRole[]>(`${SERVER1}/sys/role/list`, params, { loading: false })
 }
 
 /**

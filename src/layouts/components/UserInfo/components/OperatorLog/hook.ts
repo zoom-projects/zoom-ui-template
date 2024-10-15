@@ -94,6 +94,7 @@ export function useOperatorLog() {
     Reflect.deleteProperty(params, 'page')
     Reflect.set(params, 'size', Reflect.get(query, 'pageSize'))
     Reflect.deleteProperty(params, 'pageSize')
+    params.sorts = 'created desc'
 
     const { success, data } = await operatorLogApi.currentPage(params)
     if (success) {

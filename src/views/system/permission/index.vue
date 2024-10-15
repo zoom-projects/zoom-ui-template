@@ -81,6 +81,10 @@ const {
       <template #plus-field-status="{ prop, column }">
         <ElSegmented v-model="formModel[prop]" :options="column.options.value" />
       </template>
+      <template #plus-field-icon="{ prop }">
+        <IconPicker v-model="formModel[prop]" />
+      </template>
+
       <template #dialog-footer="{ handleConfirm, handleCancel }">
         <ElButton
           @click="handleCancel"

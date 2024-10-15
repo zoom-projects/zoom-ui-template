@@ -21,8 +21,8 @@ export interface ResPage<T> {
 
 // 分页请求参数
 export interface ReqPage {
-  current: number
-  size: number
+  current?: number
+  size?: number
   sorts?: string
 }
 
