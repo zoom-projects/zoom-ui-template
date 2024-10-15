@@ -2,6 +2,7 @@ import type { ActionBarButtonsRow, PageInfo, PlusColumn, PlusDialogFormInstance,
 import * as dictAPi from '@/api/modules/system/dict'
 import { useDictStore } from '@/store'
 import { ElTag, type FormRules } from 'element-plus'
+import { resolveDirective } from 'vue'
 import { dictKeys, dictStatus, dictValueTypeKey, innerKeys, ValueType } from './const'
 import { clone } from '/src/utils'
 
@@ -11,6 +12,7 @@ export function useDict() {
     getDict,
     loadDict,
   } = useDictStore()
+  const auth = resolveDirective('auth')
   const plusPageRef = ref<PlusPageInstance | null>()
   const dialogFormRef = ref<PlusDialogFormInstance | null>()
   const searchModel = ref({})
@@ -176,6 +178,9 @@ export function useDict() {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:dict:item:query'],
+      ],
       onClick: ({ row }) => {
         console.log('row', row)
         renderForm(row)
@@ -188,6 +193,9 @@ export function useDict() {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:dict:update'],
+      ],
       onClick: ({ row }) => {
         renderForm(row)
         formVisible.value = true
@@ -199,6 +207,9 @@ export function useDict() {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:dict:delete'],
+      ],
       confirm: {
         title: '删除提示',
         message: '确定删除该数据吗？',

@@ -1,10 +1,11 @@
 import type { ActionBarButtonsRow, PageInfo, PlusColumn, PlusPageInstance } from 'plus-pro-components'
 import { clone } from '@/utils'
+import { resolveDirective } from 'vue'
 import * as dictItemApi from '/src/api/modules/system/dictItem'
 
 export function useDictItems() {
   const currentDict = ref<any>({})
-
+  const auth = resolveDirective('auth')
   const title = computed(() => `${currentDict.value.dictName} - 字典项`)
   const plusPageRef = ref<PlusPageInstance | null>()
   const dialogLoading = ref(false)
@@ -61,6 +62,9 @@ export function useDictItems() {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:dict:item:edit'],
+      ],
       onClick: ({ row }) => {
         formModel.value = clone(row)
         if (!row.extraParams) {
@@ -75,6 +79,9 @@ export function useDictItems() {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:dict:item:delete'],
+      ],
       confirm: {
         title: '删除提示',
         message: '确定删除该数据吗？',

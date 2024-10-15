@@ -81,5 +81,6 @@ export async function resetPasswordApi(data: Auth.ReqRestPasswordForm) {
 export function getAuthMenuListApi() {
   // return http.get<Menu.MenuOptions[]>(PORT1 + `/menu/list`, {}, { loading: false });
   // 如果想让菜单变为本地数据，注释上一行代码，并引入本地 authMenuList.json 数据
-  return http.get(`${SERVER1}/auth/menu`, {}, { loading: false }).then(() => authMenuList)
+  return http.get<any>(`${SERVER1}/auth/menu`, {})
+  // return http.get<any>(`${SERVER1}/auth/menu`, {}).then(() => authMenuList)
 }

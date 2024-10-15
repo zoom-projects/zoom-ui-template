@@ -36,7 +36,7 @@ const {
     >
       <template #table-title>
         <div class="table-title">
-          <el-button type="primary" @click="handleAddNew()">
+          <el-button v-auth="['sys:permission:add']" type="primary" @click="handleAddNew()">
             <template #icon>
               <ReIcon icon="i-ep:plus" class="el-icon" />
             </template>

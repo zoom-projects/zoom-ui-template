@@ -3,17 +3,18 @@ import type { ActionBarButtonsRow, PageInfo, PlusColumn, PlusPageInstance } from
 import * as userApi from '@/api/modules/system/user'
 import { useDictStore } from '@/store'
 import { clone } from '@/utils'
+import { resolveDirective } from 'vue'
 import { dictKeys, userGenderDictKey, userStatusDictKey } from './const'
 import { isPhone } from '/src/utils/is'
 
 export function useUser() {
   const { getDict, toOptions, loadDict } = useDictStore()
   const plusPageRef = ref<PlusPageInstance | null>()
+  const auth = resolveDirective('auth')
   const formVisible = ref(false)
   const submitLoading = ref(false)
   const resetPasswordVisible = ref(false)
   const rolesVisible = ref(false)
-
   const defaultFormModel = {
     gender: 0,
     status: true,
@@ -108,6 +109,9 @@ export function useUser() {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:user:update'],
+      ],
       onClick: ({ row }) => {
         hidePassword.value = true
         formModel.value = clone(row, true)
@@ -121,6 +125,9 @@ export function useUser() {
         underline: false,
       },
       show: row => !row?.isSystem,
+      directives: [
+        [auth, 'sys:user:reset_password'],
+      ],
       onClick: ({ row }) => {
         formModel.value = clone(row, true)
         resetPasswordVisible.value = true
@@ -133,6 +140,9 @@ export function useUser() {
         underline: false,
       },
       show: row => !row?.isSystem,
+      directives: [
+        [auth, 'sys:user:assign_role'],
+      ],
       onClick: ({ row }) => {
         formModel.value = clone(row, true)
         rolesVisible.value = true
@@ -141,6 +151,9 @@ export function useUser() {
     {
       text: '删除',
       show: row => !row?.isSystem,
+      directives: [
+        [auth, 'sys:user:delete'],
+      ],
       props: {
         type: 'primary',
         underline: false,

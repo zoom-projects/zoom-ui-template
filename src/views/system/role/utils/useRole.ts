@@ -3,10 +3,12 @@ import type { FormRules } from 'element-plus'
 import type { ActionBarButtonsRow, PlusColumn } from 'plus-pro-components'
 import * as roleApi from '@/api/modules/system/role'
 import { useTable } from 'plus-pro-components'
+import { resolveDirective } from 'vue'
 import { RoleStatus } from './enums'
 
 export function useRole(onEdit: (row: any) => void) {
   const { tableData, total, pageInfo } = useTable<any>()
+  const auth = resolveDirective('auth')
   const pageSizeList = [10, 20, 50, 100]
 
   const currentRow = ref<any>({})
@@ -52,6 +54,9 @@ export function useRole(onEdit: (row: any) => void) {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:role:update'],
+      ],
       onClick: ({ row }) => {
         currentRow.value = row
         onEdit(row)
@@ -67,6 +72,9 @@ export function useRole(onEdit: (row: any) => void) {
         title: '删除提示',
         message: '确定删除该数据吗？',
       },
+      directives: [
+        [auth, 'sys:role:update'],
+      ],
       onConfirm: async ({ row }) => {
         await roleApi.delById(row.id)
         onLoad()
@@ -78,6 +86,9 @@ export function useRole(onEdit: (row: any) => void) {
         type: 'primary',
         underline: false,
       },
+      directives: [
+        [auth, 'sys:role:grant'],
+      ],
       onClick: ({ row }) => {
         currentRow.value = row
         showPermission.value = true

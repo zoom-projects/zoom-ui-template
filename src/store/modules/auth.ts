@@ -18,7 +18,11 @@ export const useAuthStore = defineStore('app-auth', () => {
   // Get AuthMenuList
   async function getAuthMenuList() {
     const { data } = await getAuthMenuListApi()
-    authMenuList.value = data
+    authMenuList.value = data.menu
+    authButtonList.value = data.auth
+
+    // const { data } = await getAuthMenuListApi()
+    // authMenuList.value = data
   }
   // Set RouteName
   async function setRouteName(name: string) {

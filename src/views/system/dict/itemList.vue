@@ -68,7 +68,7 @@ watch(localVisible, (val) => {
       >
         <template #table-title>
           <div class="table-title">
-            <el-button type="primary" @click="addNew">
+            <el-button v-auth="['sys:dict:item:query']" type="primary" @click="addNew">
               <template #icon>
                 <ReIcon icon="i-ep:plus" class="el-icon" />
               </template>

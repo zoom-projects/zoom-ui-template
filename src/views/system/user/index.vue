@@ -32,7 +32,7 @@ const {
       }"
     >
       <template #table-title>
-        <el-button type="primary" @click="addNew">
+        <el-button v-auth="['sys:user:add']" type="primary" @click="addNew">
           <template #icon>
             <ReIcon icon="i-ep:plus" class="el-icon" />
           </template>

@@ -65,7 +65,7 @@ onMounted(() => {
             style="transition: width 220ms cubic-bezier(0.4, 0, 0.2, 1)"
           >
             <template #title>
-              <el-button type="primary" @click="onAddNew">
+              <el-button v-auth="['sys:role:add']" type="primary" @click="onAddNew">
                 <template #icon>
                   <ReIcon icon="i-ep:plus" class="el-icon" />
                 </template>

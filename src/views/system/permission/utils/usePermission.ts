@@ -5,11 +5,13 @@ import * as permissionApi from '@/api/modules/system/permission'
 import { useDictStore } from '@/store'
 import { clone, deepTree } from '@/utils'
 import { ElTag } from 'element-plus'
+import { resolveDirective } from 'vue'
 import { dictKeys, menuAffixDictKey, menuFullScreenDictKey, menuHiddenDictKey, menuKeepAliveDictKey, menuStatusDictKey, menuTypeDictKey } from '../utils/const'
 
 export function usePermission() {
   const { toOptions, getDict, loadDict } = useDictStore()
 
+  const auth = resolveDirective('auth')
   const plusPageRef = ref<PlusPageInstance | null>()
   const tableData = ref<any[]>([])
 
@@ -232,6 +234,9 @@ export function usePermission() {
       text: '新增',
       code: 'add',
       show: row => row.menuType !== 3,
+      directives: [
+        [auth, 'sys:permission:add'],
+      ],
       props: {
         type: 'primary',
         underline: false,
@@ -244,6 +249,9 @@ export function usePermission() {
     {
       text: '编辑',
       code: 'edit',
+      directives: [
+        [auth, 'sys:permission:update'],
+      ],
       props: {
         type: 'primary',
         underline: false,
@@ -256,6 +264,9 @@ export function usePermission() {
     {
       text: '删除',
       code: 'delete',
+      directives: [
+        [auth, 'sys:permission:delete'],
+      ],
       props: {
         type: 'primary',
         underline: false,
