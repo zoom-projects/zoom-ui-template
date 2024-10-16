@@ -1,7 +1,5 @@
 import { clone as _clone, cloneDeep, orderBy } from 'lodash-es'
 
-export * from './install'
-
 const mode = import.meta.env.VITE_ROUTER_MODE ?? 'history'
 /**
  * @description 使用递归找出所有面包屑存储到 pinia/vuex 中
@@ -124,4 +122,16 @@ export function getKeyList(data: any, key: string): any[] {
     }
   })
   return list
+}
+
+// ==== buildShortUUID  函数====
+
+export function buildShortUUID(prefix = '') {
+  // 生成uuid
+  const uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
+    const r = (Math.random() * 16) | 0
+    const v = c === 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+  return prefix + uuid
 }

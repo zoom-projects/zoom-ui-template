@@ -66,6 +66,9 @@ importers:
       '@plus-pro-components/resolver':
         specifier: ^0.0.3
         version: 0.0.3
+      '@tinymce/tinymce-vue':
+        specifier: ^5
+        version: 5.1.1(vue@3.5.10(typescript@5.6.2))
       '@types/node':
         specifier: ^22.7.4
         version: 22.7.4
@@ -941,6 +944,11 @@ packages:
 
   '@sxzz/popperjs-es@2.11.7':
     resolution: {integrity: sha512-Ccy0NlLkzr0Ex2FKvh2X+OyERHXJ88XJ1MXtsI9y9fGexlaXaVTPzBCRBwIxFkORuOb+uBqeu+RqnpgYTEZRUQ==}
+
+  '@tinymce/tinymce-vue@5.1.1':
+    resolution: {integrity: sha512-iO57HOWesFOhsaqjA5Ea6sDvQBmJJH3/dq00Uvg7metlct2kLF+ctRgoDsetLt6gmeZ7COPftr814/XzqnJ/dg==}
+    peerDependencies:
+      vue: ^3.0.0
 
   '@trysound/sax@0.2.0':
     resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
@@ -4579,6 +4587,9 @@ packages:
     resolution: {integrity: sha512-NbBoFBpqfcgd1tCiO8Lkfdk+xrA7mlLR9zgvZcZWQQwU63XAfUePyd6wZBaU93Hqw347lHnwFzttAkemHzzz4g==}
     engines: {node: '>=12.0.0'}
 
+  tinymce@6.8.5:
+    resolution: {integrity: sha512-qAL/FxL7cwZHj4BfaF818zeJJizK9jU5IQzTcSLL4Rj5MaJdiVblEj7aDr80VCV1w9h4Lak9hlnALhq/kVtN1g==}
+
   tippy.js@6.3.7:
     resolution: {integrity: sha512-E1d3oP2emgJ9dRQZdf3Kkn0qJgI6ZLpyS5z6ZkY1DF3kaQaBsGZsndEpHwx+eC+tYM41HaSNvNtLx8tU57FzTQ==}
 
@@ -5808,6 +5819,11 @@ snapshots:
       - typescript
 
   '@sxzz/popperjs-es@2.11.7': {}
+
+  '@tinymce/tinymce-vue@5.1.1(vue@3.5.10(typescript@5.6.2))':
+    dependencies:
+      tinymce: 6.8.5
+      vue: 3.5.10(typescript@5.6.2)
 
   '@trysound/sax@0.2.0': {}
 
@@ -10120,6 +10136,8 @@ snapshots:
     dependencies:
       fdir: 6.3.0(picomatch@4.0.2)
       picomatch: 4.0.2
+
+  tinymce@6.8.5: {}
 
   tippy.js@6.3.7:
     dependencies:

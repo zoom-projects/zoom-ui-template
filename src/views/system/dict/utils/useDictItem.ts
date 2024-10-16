@@ -103,7 +103,7 @@ export function useDictItems() {
   function addNew() {
     formModel.value = {
       sort: 1,
-      status: 1,
+      status: true,
       extraParams: {},
     }
     formVisible.value = true

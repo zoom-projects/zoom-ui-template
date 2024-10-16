@@ -9,7 +9,7 @@ export const menuAffixDictKey = 'systemMenuAffix'
 // 菜单是否全屏 dict
 export const menuFullScreenDictKey = 'systemMenuFullScreen'
 // 菜单状态 dict
-export const menuStatusDictKey = 'systemMenuStatus'
+export const menuStatusDictKey = 'systemStatus'
 
 // 字典keys
 export const dictKeys = [menuTypeDictKey, menuHiddenDictKey, menuKeepAliveDictKey, menuAffixDictKey, menuFullScreenDictKey, menuStatusDictKey]

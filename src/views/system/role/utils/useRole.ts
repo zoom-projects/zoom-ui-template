@@ -2,11 +2,13 @@ import type { System } from '@/api/types'
 import type { FormRules } from 'element-plus'
 import type { ActionBarButtonsRow, PlusColumn } from 'plus-pro-components'
 import * as roleApi from '@/api/modules/system/role'
+import { useDictStore } from '@/store'
 import { useTable } from 'plus-pro-components'
 import { resolveDirective } from 'vue'
-import { RoleStatus } from './enums'
+import { dictKeys, roleStatusDictKey } from './const'
 
 export function useRole(onEdit: (row: any) => void) {
+  const { loadDict, toOptions } = useDictStore()
   const { tableData, total, pageInfo } = useTable<any>()
   const auth = resolveDirective('auth')
   const pageSizeList = [10, 20, 50, 100]
@@ -36,7 +38,7 @@ export function useRole(onEdit: (row: any) => void) {
       prop: 'status',
       hideInSearch: false,
       valueType: 'select',
-      options: RoleStatus,
+      options: computed(() => toOptions(roleStatusDictKey)),
     },
     {
       label: '创建时间',
@@ -120,6 +122,10 @@ export function useRole(onEdit: (row: any) => void) {
     }
   }
 
+  onBeforeMount(() => {
+    loadDict(dictKeys)
+  })
+
   return {
     currentRow,
     searchModel,
@@ -138,11 +144,13 @@ export function useRole(onEdit: (row: any) => void) {
 }
 
 export function useRoleForm() {
+  const { loadDict, toOptions } = useDictStore()
+
   const submitLoading = ref(false)
   const formVisible = ref(false)
   const formModel = ref<any>({ })
   const defaultModel = {
-    status: 1,
+    status: true,
   }
   const formRules: FormRules = {
     roleName: [{ required: true, message: '请输入角色名称', trigger: 'blur' }],
@@ -197,7 +205,7 @@ export function useRoleForm() {
       prop: 'status',
       hideInSearch: false,
       valueType: 'select',
-      options: RoleStatus,
+      options: computed(() => toOptions(roleStatusDictKey)),
     },
     {
       label: '创建时间',
@@ -224,16 +232,13 @@ export function useRoleForm() {
   function _save() {
     return roleApi.save(formModel.value)
   }
-
-  /** ***********  ✨ Codeium Command ⭐  */
-  /**
-   * 更新角色
-   * @returns {Promise<AxiosResponse<System.Role>>}
-   */
-  /** ****  a03cd6bf-83f3-488f-8a17-41d705be0533  */
   function _update() {
     return roleApi.update(formModel.value.id, formModel.value)
   }
+
+  onBeforeMount(() => {
+    loadDict(dictKeys)
+  })
 
   return {
     formItems,

@@ -5,7 +5,7 @@ export const innerKeys = ['value', 'label']
 export const dictValueTypeKey = 'dictValueType'
 
 // 菜单配置值类型 状态
-export const dictStatus = 'dictStatus'
+export const dictStatus = 'systemStatus'
 
 // 加载的字典值
 export const dictKeys = [dictValueTypeKey, dictStatus]

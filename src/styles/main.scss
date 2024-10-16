@@ -26,3 +26,8 @@ body,
   -moz-osx-font-smoothing: grayscale;
   cursor: pointer;
 }
+
+// tinymce 弹窗 z-index 问题
+.tox-tinymce-aux {
+  z-index: 5000 !important;
+}

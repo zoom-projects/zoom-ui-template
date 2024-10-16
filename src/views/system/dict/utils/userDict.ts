@@ -226,7 +226,7 @@ export function useDict() {
 
   async function addNew() {
     formModel.value = {
-      status: 1,
+      status: true,
       extraParams: [],
     }
     formVisible.value = true

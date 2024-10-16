@@ -25,7 +25,7 @@ export function usePermission() {
     isKeepAlive: true,
     isAffix: false,
     isFullScreen: false,
-    status: 1,
+    status: true,
   }
   const formModel = ref<FormItemProps>({ ...defaultModel })
 

@@ -1,5 +1,8 @@
+import { Nullable } from 'plus-pro-components'
+
 declare global {
   type Recordable<T = any> = Record<string, T>
+  type Nullable<T> = T | null
 
   /* Menu */
   declare namespace Menu {

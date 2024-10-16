@@ -266,4 +266,33 @@ export namespace System {
     roleId: string
     endTime?: string
   }
+
+  export interface MessageTemplateQuery extends ReqPage {
+    templateType?: string
+    templateName?: string
+    templateCode?: string
+    status?: boolean
+  }
+
+  export interface ResMessageTemplate {
+    id: string
+    templateName: string
+    templateCode: string
+    templateType: string
+    templateContentText: string
+    templateContentHtml: string
+    status: boolean
+    created: string
+    modifiedBy: string
+  }
+
+  export interface ReqMessageTemplateForm {
+    id?: string
+    templateName: string
+    templateCode?: string
+    templateType: string
+    templateContentText: string
+    templateContentHtml: string
+    status: boolean
+  }
 }
