@@ -295,4 +295,53 @@ export namespace System {
     templateContentHtml: string
     status: boolean
   }
+
+  export interface MessageQuery extends ReqPage {
+    msgType?: string
+    msgTitle?: string
+    msgReceiver?: string
+    msgSendStatus?: number
+  }
+
+  export interface ResMessage {
+    id: string
+    msgType: string
+    msgTitle: string
+    msgReceiver: string
+    msgParam: string
+    msgContent: string
+    msgSendTime: string
+    msgSendStatus: number
+    msgSendNum: number
+    msgResult: string
+    remark: string
+  }
+
+  export interface JobQuery extends ReqPage {
+    appName?: string
+    className?: string
+    description?: string
+    status?: boolean
+  }
+
+  export interface ResJob {
+    id: string
+    appName: string
+    className: string
+    parameter: string
+    cronExpression: string
+    description: string
+    status: boolean
+  }
+
+  export interface ReqJobForm {
+    id?: string
+    appName: string
+    className: string
+    parameter: string
+    cronExpression: string
+    description: string
+    status: boolean
+  }
+
 }

@@ -68,7 +68,7 @@ function onBack() {
           <ElButton
             :disabled="isDisabled"
             class="ml-2"
-            @click="useVerifyCode().start(ruleFormRef, 'phone')"
+            @click="useVerifyCode().start(ruleFormRef, 'phone', ruleForm.phone, 'register')"
           >
             {{
               text.length > 0

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import Tinymce from '@/components/Tinymce'
-import { useMessageTemplate } from './utils/hook'
+import { useJob } from './utils/hook'
 
 const {
   plusPageRef,
@@ -10,12 +9,11 @@ const {
   formRules,
   submitLoading,
   tableColumns,
-  actionButtons,
+  actionButtions,
   addNew,
-  contentChange,
   handleSave,
   loadData,
-} = useMessageTemplate()
+} = useJob()
 </script>
 
 <template>
@@ -26,23 +24,20 @@ const {
       :request="loadData"
       :table="{
         actionBar: {
-          buttons: actionButtons,
+          buttons: actionButtions,
         },
       }"
     >
       <template #table-title>
-        <div class="table-title">
-          <el-button
-            v-auth="['sys:message:template:add']"
-            type="primary"
-            @click="addNew"
-          >
-            <template #icon>
-              <ReIcon icon="i-ep:plus" class="el-icon" />
-            </template>
-            新增
-          </el-button>
-        </div>
+        <el-button
+          type="primary"
+          @click="addNew"
+        >
+          <template #icon>
+            <ReIcon icon="i-ep:plus" class="el-icon" />
+          </template>
+          新增
+        </el-button>
       </template>
     </PlusPage>
 
@@ -52,25 +47,15 @@ const {
       v-model="formModel"
       :form="{
         columns: tableColumns,
-        rules: formRules,
         labelWidth: '100px',
+        rules: formRules,
       }"
       :dialog="{
-        title: formModel.id ? '编辑消息模板' : '新增消息模板',
+        title: formModel.id ? '编辑任务' : '新增任务',
         width: '45%',
-        destroyOnClose: true,
       }"
       @confirm="handleSave"
     >
-      <template #plus-field-templateType="{ prop, column }">
-        <ElSegmented v-model="formModel[prop]" :options="column.options.value" />
-      </template>
-      <template #plus-field-templateContentHtml="{ prop }">
-        <Tinymce :value="formModel[prop]" @change="contentChange" />
-      </template>
-      <template #plus-field-status="{ prop, column }">
-        <ElSegmented v-model="formModel[prop]" :options="column.options.value" />
-      </template>
       <template #dialog-footer="{ handleConfirm, handleCancel }">
         <ElButton
           @click="handleCancel"

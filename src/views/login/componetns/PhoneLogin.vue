@@ -61,7 +61,7 @@ function onBack() {
           <ElButton
             class="ml-2"
             :disabled="isDisabled"
-            @click="useVerifyCode().start(ruleFormRef, 'phone')"
+            @click="useVerifyCode().start(ruleFormRef, 'mobile', ruleForm.phone, 'mobile')"
           >
             {{ text.length > 0 ? `${text} 秒后重新获取` : '获取验证码' }}
           </ElButton>

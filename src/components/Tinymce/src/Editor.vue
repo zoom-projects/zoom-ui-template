@@ -1,18 +1,21 @@
 <script setup lang="ts">
 import type { RawEditorOptions } from 'tinymce/tinymce'
 import type { TinymceProps } from './typing'
+import { useGlobalStore } from '@/store'
 import { buildShortUUID } from '@/utils'
 import { isNumber } from '@/utils/is'
+
 import Editor from '@tinymce/tinymce-vue'
-import tinymce from 'tinymce/tinymce'
+import tinymce from 'tinymce'
 import { bindHandlers } from './helper'
-
 import { menubar, simplePlugins, simpleToolbar } from './tinymce'
-import 'tinymce/themes/silver'
-import 'tinymce/themes/silver/theme'
 import 'tinymce/icons/default'
+import 'tinymce/themes/silver'
 import 'tinymce/models/dom'
+import 'tinymce/skins/ui/oxide/skin'
+import 'tinymce/skins/ui/oxide/content'
 
+import 'tinymce/skins/content/default/content'
 // 编辑器插件plugins
 // 更多插件参考：https://www.tiny.cloud/docs/plugins/
 // 全屏插件
@@ -23,8 +26,11 @@ import 'tinymce/plugins/link'
 import 'tinymce/plugins/lists'
 // 预览插件
 import 'tinymce/plugins/preview'
+
 // 图片插件
 import 'tinymce/plugins/image'
+
+import '@/assets/tinymce/langs/zh_CN.js'
 import { onMountedOrActivated } from '/src/hooks/onMountedOrActivated'
 
 const props = withDefaults(defineProps<TinymceProps>(), {
@@ -38,7 +44,9 @@ const props = withDefaults(defineProps<TinymceProps>(), {
   showImageUpload: false,
   autoFocus: true,
 })
+
 const emits = defineEmits(['change', 'update:modelValue', 'inited', 'initError'])
+
 const { attrs } = getCurrentInstance()!
 
 const editorRef = ref<Nullable<any>>(null)
@@ -49,6 +57,7 @@ const editorRootRef = ref<Nullable<HTMLElement>>(null)
 const imgUploadShow = ref(false)
 const targetElem = ref<null | HTMLDivElement>(null)
 
+const appStore = useGlobalStore()
 const tinymceContent = computed(() => props.modelValue)
 const containerWidth = computed(() => {
   const width = props.width
@@ -57,31 +66,34 @@ const containerWidth = computed(() => {
   }
   return width
 })
+const isDark = computed(() => appStore.isDark)
+const skinName = computed(() => {
+  return appStore.isDark ? 'oxide-dark' : 'oxide'
+})
 
 const initOptions = computed(() => {
   const { height, options, toolbar, plugins, menubar } = props
   let publicPath = import.meta.env.VITE_PUBLIC_PATH || '/'
-  // update-begin--author:liaozhiyang---date:20240320---for：【QQYUN-8571】发布路径不以/结尾资源会加载失败
   if (!publicPath.endsWith('/')) {
     publicPath += '/'
   }
   return {
     selector: `#${unref(tinymceId)}`, // 选择器
+    inline: false, // 是否内联
     height, // 高度
     toolbar, // 工具栏
     menubar: false, // 菜单栏
     plugins, // 插件
     language: 'zh_CN', // 语言
-    language_url: `${publicPath}resources/tinymce/langs/zh_CN.js`, // 语言包
     branding: false, // 品牌推广
     default_link_target: '_blank', // 链接默认打开方式
     link_title: false, // 链接标题
     object_resizing: true, // 对象调整大小
     toolbar_mode: 'sliding', // 工具栏模式
     auto_focus: props.autoFocus, // 自动聚焦
-    skin: 'oxide', // 皮肤
-    skin_url: `${publicPath}resources/tinymce/skins/ui/oxide`, // 皮肤路径
-    content_css: `${publicPath}resources/tinymce/skins/content/default/content.min.css`, // 内容样式
+    skin: skinName.value, // 皮肤
+    skin_url: `${publicPath}resources/tinymce/skins/ui/${skinName.value}`, // 皮肤样式
+    content_css: isDark.value ? `${publicPath}resources/tinymce/skins/content/dark/content.css` : `${publicPath}resources/tinymce/skins/content/default/content.css`, // 内容样式
     ...options,
     setup: (editor: any) => {
       editorRef.value = editor
@@ -94,14 +106,12 @@ const disabled = computed(() => {
   const { options } = props
   const getdDisabled = options && Reflect.get(options, 'readonly')
   const editor = unref(editorRef)
-  // update-begin-author:taoyan date:20220407 for: 设置disabled，图片上传没有被禁用
   if (editor && editor?.setMode) {
     editor.setMode(getdDisabled || attrs.disabled === true ? 'readonly' : 'design')
   }
   if (attrs.disabled === true) {
     return true
   }
-  // update-end-author:taoyan date:20220407 for: 设置disabled，图片上传没有被禁用
   return getdDisabled ?? false
 })
 
@@ -133,7 +143,7 @@ function initEditor() {
     el.style.visibility = ''
   }
   tinymce
-    .init(unref(initOptions) as RawEditorOptions)
+    .init(unref(initOptions))
     .then((editor) => {
       emits('inited', editor)
     })
@@ -196,7 +206,6 @@ watch(
     mountElem()
   },
 )
-
 onMounted(() => {
   mountElem()
 })

@@ -42,6 +42,25 @@ export async function loginApiByPhoneApi(params: Auth.ReqLoginPhoneForm) {
 }
 
 /**
+ *  获取验证码
+ * @param type  mobile | email
+ * @param account 手机号或邮箱
+ * @returns .
+ */
+export async function getCaptchaCode(type: string, account: string) {
+  const timestamp = new Date().getTime()
+  const iv = random(16)
+  const _key = await SHA.has256Hex(iv + timestamp)
+  const _iv = await str2Hex(iv)
+  const data = await AES.encryptHex(account, _key, _iv)
+  return http.post<string>(`${SERVER1}/auth/captcha/${type}`, {
+    value: data,
+    captchaKey: iv,
+    timestamp,
+  })
+}
+
+/**
  *  登出
  * @returns
  */
